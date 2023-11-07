@@ -1,0 +1,32 @@
+<h1>TODOS LOS PRODUCTOS:</h1>
+<ul>
+    {{#each products}}
+        <div class="card">
+        <li>
+            <p>ID: </p>{{id}}
+        </li>
+        <li>
+            <p>Nombre: </p>{{title}}
+        </li>
+        <li>
+            <p>Descripción: </p>{{description}}
+        </li>
+        <li>
+            <p>Código: </p>
+            {{code}}
+        </li>
+        <li>
+            <p>Precio: </p>{{price}}
+        </li>
+        <li>
+            <p>Stock: </p>{{stock}}
+        </li>
+        <li>
+            <p>Categoria: </p>{{category}}
+        </li>
+        <li>
+            <p>Imagen: </p>{{thumbnails}}
+        </li>
+        </div>
+    {{/each}}
+</ul>
