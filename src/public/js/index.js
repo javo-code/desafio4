@@ -3,8 +3,18 @@ const socketClient = io();
 socketClient.on('arrayProducts', (productsArray) => {
     const productsElement = document.getElementById('products');
     let infoProducts = '';
-    productsArray.forEach(p => {
-        infoProducts += `${p.title} - ${p.description} - ${p.code} - $${p.price} - ${p.stock} - ${p.category}</br>`;
+    productsArray.forEach((p, index) => {
+        // Agrega una clase 'product' seguida del índice para identificar cada producto
+        infoProducts += `<div class="product product-${index + 1}">
+                            <strong>ID:</strong> ${p.id} <br>
+                            <strong>Nombre:</strong> ${p.title} <br>
+                            <strong>Detalle:</strong> ${p.description} <br>
+                            <strong>Código del Producto:</strong> ${p.code} <br>
+                            <strong>Précio:</strong> $${p.price} <br>
+                            <strong>Stock Disponible:</strong> ${p.stock} <br>
+                            <strong>Categoria:</strong> ${p.category} <br>
+                            <br>
+                        </div>`;
     });
     productsElement.innerHTML = infoProducts;
 });
