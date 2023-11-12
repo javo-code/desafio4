@@ -38,7 +38,7 @@ fs.readFile('./products.json', 'utf-8', (err, data) => {
 });
 
 socketServer.on('connection', (socket) => {
-  
+  console.log('Cliente conectado')
   // Emitir productos al cliente al conectarse
   socket.emit('arrayProducts', products); 
 
