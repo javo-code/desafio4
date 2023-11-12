@@ -38,22 +38,27 @@ fs.readFile('./products.json', 'utf-8', (err, data) => {
 });
 
 socketServer.on('connection', (socket) => {
-  console.log('Cliente conectado')
+  console.log('Cliente conectado');
+
   // Emitir productos al cliente al conectarse
-  socket.emit('arrayProducts', products); 
+  socket.emit('arrayProducts', products);
 
   socket.on('newProduct', (product) => {
+    // Agregar el nuevo producto al array de productos
     products.push(product);
 
-    // Emitir los productos a todos los clientes
-    socketServer.emit('arrayProducts', products); 
+    // Emitir el nuevo producto a todos los clientes
+    socketServer.emit('arrayProducts', products);
 
-    // Guardo los productos en el archivo products.json
+    // Guardar los productos en el archivo products.json
     fs.writeFile('./products.json', JSON.stringify(products, null, 2), (err) => {
       if (err) {
         console.error('Error al guardar los productos:', err);
       } else {
         console.log('Productos guardados exitosamente en "products.json"');
+
+        // Emitir el nuevo producto a todos los clientes, incluyendo al que lo creó
+        socketServer.emit('newProductAdded', product);
       }
     });
   });
@@ -62,7 +67,7 @@ socketServer.on('connection', (socket) => {
     try {
       await productManager.deleteProduct(parseInt(productId));
       const updatedProducts = await productManager.getProducts();
-  
+
       // Emitir los productos actualizados a todos los clientes
       socketServer.emit('arrayProducts', updatedProducts);
     } catch (error) {

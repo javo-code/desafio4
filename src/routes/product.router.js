@@ -23,18 +23,26 @@ router.get("/", async (req, res) => {
 
 //CREAR PRODUCTO.
 router.post("/", productValidator, async (req, res) => {
-        try {
-        const { code } = req.body;
-        const products = await productManager.getProducts();
-        const isCodeRepeated = products.some(existingProduct => existingProduct.code === code);
-        if (isCodeRepeated) {
-            return res.status(400).json({ message: 'Product code already exists' });
-        }
-        const productCreated = await productManager.createProduct(req.body);
-        res.status(200).json(productCreated);
-    } catch (error) {
-        res.status(500).json({ error: "Internal Server Error - (CREAR PRODUCTO.)" });
+  try {
+    const { code } = req.body;
+    const products = await productManager.getProducts();
+    const isCodeRepeated = products.some(
+      (existingProduct) => existingProduct.code === code
+    );
+    if (isCodeRepeated) {
+      return res.status(400).json({ message: "Product code already exists" });
     }
+
+    // Utilizamos el nuevo método para crear el producto con ID consecutivo
+    const productCreated = await productManager.createProductFromClient(
+      req.body
+    );
+    res.status(200).json(productCreated);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Internal Server Error - (CREAR PRODUCTO.)" });
+  }
 });
 
 //MOSTRAR PRODUCTO POR ID.

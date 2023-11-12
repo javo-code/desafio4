@@ -119,5 +119,14 @@
     "stock": 10,
     "category": "Deponsables",
     "thumbnails": "https://i.ibb.co/3SYSp9p/heparina.jpg"
+  },
+  {
+    "id": 12,
+    "title": "adasd",
+    "description": "qweqwe",
+    "code": "asd",
+    "price": "123",
+    "stock": "1",
+    "category": "dasd"
   }
 ]
