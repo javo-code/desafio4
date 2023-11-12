@@ -1,5 +1,5 @@
 import fs from "fs";
-import { productManager } from "./product.manager.js";
+import { productManager } from "../managers/products.manager.js";
 
 class CartManager {
     constructor(path) {
@@ -120,6 +120,6 @@ return currentCart;
     }
 }
 
-const cartManager = new CartManager("../desafio4-borrador/src/data/carts.json");
+const cartManager = new CartManager("./carts.json");
 
 export { cartManager }

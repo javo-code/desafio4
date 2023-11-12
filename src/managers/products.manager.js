@@ -93,6 +93,6 @@ class ProductManager {
   }
 }
 
-const productManager = new ProductManager("../desafio4-borrador/src/data/products.json")
+const productManager = new ProductManager("./products.json")
 
 export { productManager }

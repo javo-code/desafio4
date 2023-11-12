@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router = Router();
-import { cartManager } from "../managers/cart.manager.js";
+import { cartManager } from "../managers/carts.manager.js";
 
 
 //MOSTRAR TODOS LOS CARRITOS.

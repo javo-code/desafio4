@@ -1,15 +1,20 @@
 import express from "express";
 import handlebars from "express-handlebars";
 import { __dirname } from "./utils.js";
+import productRouter from "./routes/product.router.js";
+import cartRouter from "./routes/cart.router.js";
 import viewRouter from './routes/views.router.js';
 import { Server } from "socket.io";
 import fs from 'fs';
+import { productManager } from './managers/products.manager.js'; // Agregar esta línea
 
 const app = express();
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
 app.use('/', viewRouter);
+app.use('/api/products', productRouter);
+app.use('/api/carts', cartRouter);
 
 app.engine("handlebars", handlebars.engine());
 app.set("view engine", "handlebars");
@@ -51,5 +56,17 @@ socketServer.on('connection', (socket) => {
         console.log('Productos guardados exitosamente en "products.json"');
       }
     });
+  });
+
+  socket.on('deleteProduct', async (productId) => {
+    try {
+      await productManager.deleteProduct(parseInt(productId));
+      const updatedProducts = await productManager.getProducts();
+  
+      // Emitir los productos actualizados a todos los clientes
+      socketServer.emit('arrayProducts', updatedProducts);
+    } catch (error) {
+      console.error('Error al eliminar el producto:', error);
+    }
   });
 });

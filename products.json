@@ -118,14 +118,6 @@
     "price": 7500,
     "stock": 10,
     "category": "Deponsables",
-    "thumbnails": "noImgYet"
-  },
-  {
-    "title": "Aposito",
-    "description": "20x20cm",
-    "code": "ACC2012",
-    "price": "500",
-    "stock": "1",
-    "category": "deponsables"
+    "thumbnails": "https://i.ibb.co/3SYSp9p/heparina.jpg"
   }
 ]

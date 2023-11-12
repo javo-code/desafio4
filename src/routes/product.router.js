@@ -2,8 +2,7 @@ import { Router } from "express";
 const router = Router();
 
 import { productValidator } from "../middleware/productValidator.js";
-import { productManager } from "../managers/product.manager.js";
-import { uploader } from "../middleware/multer.js";
+import { productManager } from "../managers/products.manager.js";
 
 
 //MOSTRAR TODOS LOS PRODUCTOS
