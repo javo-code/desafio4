@@ -8,10 +8,10 @@ const MONGO_ATLAS_URL = "mongodb+srv://romerofj26:admin@datavaultcluster.bxnyw28
 
 
 //export const initMongoDB = async () => {
-  try {
-    await connect(MONGO_ATLAS_URL);
-    console.log('Conectado a la base de datos de MONGODB');
-  } catch (error) {
-    console.log(error);
-  }
+    try {
+        await connect(MONGO_ATLAS_URL);
+        console.log('Conectado a la base de datos de MONGODB');
+    } catch (error) {
+        console.log(error);
+    }
 //};

@@ -6,8 +6,8 @@ import cartRouter from "./routes/cart.router.js";
 import viewRouter from './routes/views.router.js';
 import { Server } from "socket.io";
 import fs from 'fs';
-import { productManager } from './managers/products.manager.js'; // Agregar esta línea
-import "./db/connection.js"
+import { productDaoFS } from './daos/fileSystem/products.dao.js/'; // Agregar esta línea
+import "./daos/mongodb/connection.js"
 
 const app = express();
 app.use(express.json());
@@ -25,6 +25,8 @@ const PORT = 8080;
 const httpServer = app.listen(PORT, () => {
   console.log(`Escuchando en el puerto: ${PORT}`);
 });
+
+console.log(__dirname);
 
 const socketServer = new Server(httpServer);
 let products = []; // Array de productos
@@ -66,11 +68,11 @@ socketServer.on('connection', (socket) => {
 
   socket.on('deleteProduct', async (productId) => {
     try {
-      await productManager.deleteProduct(parseInt(productId));
-      const updatedProducts = await productManager.getProducts();
+      await productDaoFS.delete(parseInt(productId));
+      const update = await productDaoFS.getAll();
 
       // Emitir los productos actualizados a todos los clientes
-      socketServer.emit('arrayProducts', updatedProducts);
+      socketServer.emit('arrayProducts', update);
     } catch (error) {
       console.error('Error al eliminar el producto:', error);
     }

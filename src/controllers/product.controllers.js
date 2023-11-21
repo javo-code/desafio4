@@ -1,54 +1,54 @@
-import ProductManager from "../managers/products.manager.js";
-const productManager = new ProductManager();
+// import { getAll, getById, create, update, remove } from "../services/product.services.js";
+import * as service from "../services/product.services.js";
 
-export const getAllProducts = async (req, res, next) => {
-    try {
-        const products = await productManager.getAll();
-        res.json(products);
-    } catch (error) {
-        next(error);
-    }
+export const getAll = async (req, res, next) => {
+  try {
+    const response = await service.getAll();
+    res.status(200).json(response);
+  } catch (error) {
+    next(error.message);
+  }
 };
 
-export const getProductById = async (req, res, next) => {
+export const getById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const response = await service.getById(id);
+    if (!response) res.status(404).json({ msg: "Product Not found!" });
+    else res.status(200).json(response);
+  } catch (error) {
+    next(error.message);
+  }
+};
+
+export const create = async (req, res, next) => {
+  try {
+    const newProd = await service.create(req.body);
+    if (!newProd) res.status(404).json({ msg: "Error create product!" });
+    else res.status(200).json(newProd);
+  } catch (error) {
+    next(error.message);
+  }
+};
+
+export const update = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const product = await productManager.getById(id);
-        if (!product) res.json({ msg: "product by ID not found" });
-        else res.json(product);
+        const prodUpd = await service.update(id, req.body);
+        if (!prodUpd) res.status(404).json({ msg: "Error update product!" });
+        else res.status(200).json(prodUpd);
     } catch (error) {
-        next(error);
+        next(error.message);
     }
 };
 
-export const createProduct = async (req, res, next) => {
-    try {
-        const newProd = await productManager.create(req.body);
-        if (!newProd) res.json({ msg: "error creating product" });
-        else res.json(newProd);
-    } catch (error) {
-        next(error);
-    }
-};
-
-export const updateProduct = async (req, res, next) => {
+export const remove = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const prodUpdt = await productManager.update(id, req.body);
-        if (!prodUpdt) res.json({ msg: "product to update not found" });
-        else res.json(prodUpdt);
+        const prodDel = await service.remove(id);
+        if (!prodDel) res.status(404).json({ msg: "Error delete product!" });
+        else res.status(200).json({ msg: `Product id: ${id} deleted` });
     } catch (error) {
-        next(error);
-    }
-};
-
-export const deleteProduct = async (req, res, next) => {
-    try {
-        const { id } = req.params;
-        const prodDel = await productManager.delete(id);
-        if (!prodDel) res.json({ msg: "product to delete not found" });
-        else res.json(prodDel);
-    } catch (error) {
-        next(error);
+        next(error.message);
     }
 };

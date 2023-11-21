@@ -1,31 +1,23 @@
 import { Router } from "express";
-import {
-  getAllProducts,
-  getProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-} from "../controllers/product.controllers.js";
+import * as controller from "../controllers/product.controllers.js";
+
 
 const router = Router();
 
-import { productValidator } from "../middleware/productValidator.js";
-
-
 //MOSTRAR TODOS LOS PRODUCTOS
-router.get("/", getAllProducts);
+router.get("/", controller.getAll);
 
 //CREAR PRODUCTO.
-router.post("/", productValidator, createProduct);
+router.post("/", controller.create);
 
 //MOSTRAR PRODUCTO POR ID.
-router.get("/:id", getProductById);
+router.get("/:id", controller.getById);
 
 //MODIFICAR PRODUCTO.
-router.put("/:id", updateProduct);
+router.put("/:id", controller.update);
 
 //ELIMINAR PRODUCTO.
-router.delete("/:id", deleteProduct);
+router.delete("/:id", controller.remove);
 
 //CREAR PRODUCTO y AGREGAR IMG.
 //seguir probando...
