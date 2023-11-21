@@ -7,6 +7,7 @@ import viewRouter from './routes/views.router.js';
 import { Server } from "socket.io";
 import fs from 'fs';
 import { productManager } from './managers/products.manager.js'; // Agregar esta línea
+import "./db/connection.js"
 
 const app = express();
 app.use(express.json());
