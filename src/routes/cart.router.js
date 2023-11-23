@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router = Router();
-import { cartDaosFS } from "../daos/fileSystem/carts.dao.js";
+import { cartDaosFS } from "../daos/fileSystem/cart.dao.js";
 
 
 //MOSTRAR TODOS LOS CARRITOS.
@@ -55,7 +55,7 @@ router.post("/", async (req, res) => {
 });
 
 // Ruta para actualizar un CARRITO por su ID.
-router.put("/:pid", async (req, res) => {
+router.put("/:id", async (req, res) => {
     try {
         const cart = { ...req.body };
         const { id } = req.params;

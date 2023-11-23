@@ -1,5 +1,5 @@
 import fs from "fs";
-import { productDaoFS } from "./products.dao.js";
+import { productDaoFS } from "./product.dao.js";
 
 class CartDaosFS {
     constructor(path) {
@@ -102,8 +102,6 @@ return currentCart;
         throw error;
     }
 }
-
-
 
     async deleteCart(idCart) {
         try {
